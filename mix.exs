@@ -23,7 +23,9 @@ defmodule PlugExample.MixProject do
   defp deps do
     [
       {:plug, "~> 1.10.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:ueberauth_github, "~> 0.7"},
+      {:jason, "~> 1.2"}
     ]
   end
 end

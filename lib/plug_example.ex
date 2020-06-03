@@ -14,11 +14,24 @@ defmodule PlugExample.Router do
   use Plug.Router
 
   plug(Plug.Logger)
+
+  plug(Plug.Parsers,
+    parsers: [:urlencoded, :multipart, :json],
+    pass: ["*/*"],
+    json_decoder: Jason
+  )
+
   plug(:match)
+  plug(Ueberauth)
   plug(:dispatch)
 
   get "/" do
     send_resp(conn, 202, "hello world")
+  end
+
+  get "/auth/github/callback" do
+    %{assigns: %{ueberauth_auth: %{info: %{nickname: nickname}}}} = conn
+    send_resp(conn, 200, "Welcome #{nickname}")
   end
 
   match _ do
